@@ -13,8 +13,8 @@ class ContactService {
 			phone: payload.phone,
 			favorite: payload.favorite,
 		};
-		// Removeundefined fields
-		Opjects.keys(contact).forEach(
+		// Remove undefined fields
+		Objects.keys(contact).forEach(
 			(key) => contact[key] === undefined && delete contact[key]
 		);
 		return contact;
@@ -25,7 +25,7 @@ class ContactService {
 		const result = await this.Contact.findOneAndUpdate(
 			contact,
 			{ $set: { favorite: contact.favorite === true } },
-				{ returnDocument: "after", upset: true }
+				{ returnDocument: "after", upsert: true }
 		);
 		return result.value;
 	}
@@ -47,7 +47,7 @@ class ContactService {
 		});
 	}
 	
-	async update(id, paylaod) {
+	async update(id, payload) {
 		const filter = {
 			_id: ObjectId.isValid(id) ? new ObjectId(id) : null,
 		};

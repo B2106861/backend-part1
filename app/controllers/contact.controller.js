@@ -21,15 +21,15 @@ exports.create = async (req, res, next) => {
 
 // Retrive all contacts of a user from the database
 exports.findAll = (req, res, next) => {
-	let document = [];
+	let documents = [];
 	
 	try {
 		const contactService = new ContactService(MongoDB.client);
 		const { name } = req.query;
 		if (name) {
-			documents = await ContactService.findByName(name);
+			documents = await contactService.findByName(name);
 		} else {
-			documents = await ContactService.find({});
+			documents = await contactService.find({});
 		}
 	} catch (error) {
 		return next(
@@ -61,7 +61,7 @@ exports.findOne = async (req, res, next) => {
 
 // Update a contact by the id in the request
 exports.update = async (req, res, next) => {
-	if (Object.keys(req.body).lenght === 0) {
+	if (Object.keys(req.body).length === 0) {
 		return next(new ApiError(400, "Data to update can not be empty"));
 	}
 	
@@ -103,7 +103,7 @@ exports.deleteAll = async (_req, res, next) => {
 	try {
 		const contactService = new ContactService(MongoDB.client);
 		const deletedCount = await contactService.deleteAll();
-		return res.send({ message: '${deletedCount} Contact was deleted successfully' });
+		return res.send({ message: '${deletedCount} contacts was deleted successfully' });
 	} catch (error) {
 		return next(
 			new ApiError(
