@@ -20,7 +20,7 @@ exports.create = async (req, res, next) => {
 };
 
 // Retrive all contacts of a user from the database
-exports.findAll = (req, res, next) => {
+exports.findAll = async (req, res, next) => {
 	let documents = [];
 	
 	try {
